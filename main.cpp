@@ -24,5 +24,9 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+    Singleton *sing = new Singleton();
+    sing->setText("Instance sing->setTexto");
+    Singleton::setText("Static Singleton::setTexto");
+
     return app.exec();
 }

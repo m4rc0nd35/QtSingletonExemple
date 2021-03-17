@@ -8,13 +8,27 @@ ApplicationWindow {
     visible: true
     title: qsTr("Singleton")
 
-    Component.onCompleted: {
-        Sinstance.callme.connect(onCallme);
-        console.log(Sinstance.getInfo());
-        console.log(Sinstance.texto)
+    Connections {
+        target: Sinstance
+        onChangedText: console.log("Connections", txt)
     }
 
+    Component.onCompleted: {
+        Sinstance.callme.connect(onCallme);
+        Sinstance.changedText.connect(onCalltxt);
+
+        console.log(Sinstance.getInfo());
+        console.log(Sinstance.text)
+
+        Sinstance.text = "Q_PROPRERTY QML >> C++"
+    }
+
+    /* Slot JS */
     function onCallme(){
-        console.log("SLOT: onCallme")
+        console.log("SLOT QML:", "onCallme")
+    }
+    /* Slot JS */
+    function onCalltxt(txt){
+        console.log("SLOT QML:", txt)
     }
 }

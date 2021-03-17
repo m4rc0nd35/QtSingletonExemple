@@ -8,22 +8,24 @@
 class Singleton : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString texto MEMBER _texto NOTIFY changedTexto)
+    Q_PROPERTY(QString text READ textProperty WRITE setTextProperty NOTIFY changedText)
 
 public:
     explicit  Singleton(QObject *parent = nullptr);
     static QObject* createSingletonInstance(QQmlEngine *engine,  QJSEngine *scriptEngine);
     Q_INVOKABLE QString getInfo();
-    void setTexto(QString);
+    static void setText(QString);
+
+    QString textProperty();
+    void setTextProperty(QString&);
 
 signals:
     void callme();
-    void changedTexto();
+    void changedText(QString txt);
 
 private:
    static Singleton *m_instance;
-//   void setTexto(QString&);
-   QString _texto;
+   QString _text;
 };
 
 #endif // SINGLETON_H
